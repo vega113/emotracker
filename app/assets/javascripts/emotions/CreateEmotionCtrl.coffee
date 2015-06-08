@@ -3,11 +3,11 @@ class CreateEmotionCtrl
 
     constructor: (@$log, @$location,  @EmotionService) ->
         @$log.debug "constructing CreateEmotionController"
-        @Emotion = {}
+        @emotion = {}
 
     createEmotion: () ->
         @$log.debug "createEmotion()"
-        @EmotionService.createEmotion(@Emotion)
+        @EmotionService.createEmotion(@emotion)
         .then(
             (data) =>
                 @$log.debug "Promise returned #{data} Emotion"

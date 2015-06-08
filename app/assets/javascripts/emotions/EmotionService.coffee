@@ -37,19 +37,19 @@ class EmotionService
             )
         deferred.promise
 
-#    updateEmotion: (firstName, lastName, Emotion) ->
-#      @$log.debug "updateEmotion #{angular.toJson(Emotion, true)}"
-#      deferred = @$q.defer()
+    updateEmotion: (Emotion) ->
+      @$log.debug "updateEmotion #{angular.toJson(Emotion, true)}"
+      deferred = @$q.defer()
 
-#      @$http.put("/Emotion/#{firstName}/#{lastName}", Emotion)
-#      .success((data, status, headers) =>
-#              @$log.info("Successfully updated Emotion - status #{status}")
-#              deferred.resolve(data)
-#            )
-#      .error((data, status, header) =>
-#              @$log.error("Failed to update Emotion - status #{status}")
-#              deferred.reject(data)
-#            )
-#      deferred.promise
+      @$http.put("/emotion/#{id}", Emotion)
+      .success((data, status, headers) =>
+              @$log.info("Successfully updated Emotion - status #{status}")
+              deferred.resolve(data)
+            )
+      .error((data, status, header) =>
+              @$log.error("Failed to update Emotion - status #{status}")
+              deferred.reject(data)
+            )
+      deferred.promise
 
 servicesModule.service('EmotionService', EmotionService)

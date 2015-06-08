@@ -1,6 +1,4 @@
-
-
-    <div ng-controller="EmotionCtrl as uc">
+<div ng-controller="EmotionCtrl as uc">
         <div class="jumbotron">
             <h2>Emotions Tracker</h2>
             <p class="pull-right">Track and Share your emotions</p>
@@ -47,9 +45,9 @@
                     <td>
                         {{ emo.link }}
                     </td>
-                    <!--<td>-->
-                        <!--<a ng-href="/#/emotions/edit/{{usr.firstName}}/{{usr.lastName}}" class="btn btn-success pull-right" id="btn_emotion_update">Edit Emotion</a>-->
-                    <!--</td>-->
+                    <td>
+                        <a ng-href="/#/emotions/edit" class="btn btn-success pull-right" id="btn_emotion_update">Edit Emotion</a>
+                    </td>
                 </tr>
                 <tr ng-hide="uc.emotions.length">
                     <td colspan="3">

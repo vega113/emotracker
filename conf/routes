@@ -11,7 +11,7 @@ GET         /randomUUID          @controllers.Application.randomUUID
 # User management API
 GET         /emotion             @controllers.Emotions.findEmotions
 POST        /emotion                @controllers.Emotions.createEmotion
-PUT         /emotion/:id        controllers.Emotions.updateEmotion(id: Long)
+PUT         /emotion/:id        @controllers.Emotions.updateEmotion(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file        controllers.Assets.at(path="/public", file)

@@ -2,15 +2,22 @@
     <h1>Create Emotion</h1>
 
     <form id="CreateEmotionForm" name="CreateEmotionForm" class="form-horizontal" role="form"
-          ng-submit="cuc.createEmotion()">
+          ng-submit="cuc.createEmotion(cuc.emotion)">
         <legend class="sm-col-12">How do you feel today?</legend>
+
+        <div class="form-group">
+            <div class="col-sm-8">
+                <input type="hidden" class="form-control" name="id" id="id" placeholder=""
+                       ng-model="cuc.emotion.id">
+            </div>
+        </div>
 
         <div class="form-group">
             <label id="lbl_userId" for="userId" class="col-sm-4 control-label">User Id</label>
 
             <div class="col-sm-8">
                 <input type="text" class="form-control" name="userId" id="userId" placeholder=""
-                       ng-model="cuc.Emotion.userId">
+                       ng-model="cuc.emotion.userId">
             </div>
         </div>
 
@@ -19,21 +26,47 @@
 
             <div class="col-sm-8">
                 <input type="text" class="form-control" name="emotion" id="emotion" placeholder=""
-                       ng-model="cuc.Emotion.emotion">
+                       ng-model="cuc.emotion.emotion">
             </div>
         </div>
 
         <div class="form-group">
-            <label id="lbl_reason" for="reason" class="col-sm-4 control-label"
-                   is-required="CreateEmotionForm.reason">@Who/#What is the reason?</label>
+            <label id="lbl_reason" for="reason" class="col-sm-4 control-label">Why do you feel this way?</label>
 
             <div class="col-sm-8">
-                <input type="text" class="form-control" name="reason" id="reason"
-                       ng-model="cuc.Emotion.reason">
+                <input type="text" class="form-control" name="reason" id="reason" placeholder=""
+                       ng-model="cuc.emotion.reason">
             </div>
         </div>
 
-        <pre>{{ cuc.Emotion | json }}</pre>
+        <div class="form-group">
+            <label id="lbl_target" for="target" class="col-sm-4 control-label">Target</label>
+
+            <div class="col-sm-8">
+                <input type="text" class="form-control" name="target" id="target" placeholder=""
+                       ng-model="cuc.emotion.target">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label id="lbl_location" for="location" class="col-sm-4 control-label">Location</label>
+
+            <div class="col-sm-8">
+                <input type="text" class="form-control" name="location" id="location" placeholder=""
+                       ng-model="cuc.emotion.location">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label id="lbl_link" for="link" class="col-sm-4 control-label">Link</label>
+
+            <div class="col-sm-8">
+                <input type="text" class="form-control" name="link" id="link" placeholder=""
+                       ng-model="cuc.emotion.link">
+            </div>
+        </div>
+
+        <pre>{{ cuc.emotion | json }}</pre>
 
         <div class="form-group">
             <div class="col-sm-offset-4 col-sm-8 text-right">

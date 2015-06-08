@@ -1,59 +1,82 @@
-<!--<div ng-controller="UpdateUserCtrl as uuc">-->
-    <!--<h1>Create User</h1>-->
+<div ng-controller="UpdateEmotionCtrl as uuc">
+    <h1>Update Emotion</h1>
 
-    <!--<form id="UpdateUserForm" name="UpdateUserForm" class="form-horizontal" role="form"-->
-          <!--ng-submit="uuc.updateUser()">-->
-        <!--<legend class="sm-col-12">Basic Information</legend>-->
+    <form id="UpdateEmotionForm" name="UpdateEmotionForm" class="form-horizontal" role="form"
+          ng-submit="uuc.updateEmotion()">
+        <legend class="sm-col-12">Emotion Information</legend>
 
-        <!--<div class="form-group">-->
-            <!--<label id="lbl_firstName" for="firstName" class="col-sm-4 control-label">First Name</label>-->
+        <div class="form-group">
+            <div class="col-sm-8">
+                <input type="hidden" class="form-control" name="id" id="id" placeholder=""
+                       ng-model="uuc.emotion.id">
+            </div>
+        </div>
 
-            <!--<div class="col-sm-8">-->
-                <!--<input type="text" class="form-control" name="firstName" id="firstName" placeholder=""-->
-                       <!--ng-model="uuc.user.firstName">-->
-            <!--</div>-->
-        <!--</div>-->
+        <div class="form-group">
+            <label id="lbl_userId" for="userId" class="col-sm-4 control-label">User Id</label>
 
-        <!--<div class="form-group">-->
-            <!--<label id="lbl_lastName" for="lastName" class="col-sm-4 control-label">Last Name</label>-->
+            <div class="col-sm-8">
+                <input type="text" class="form-control" name="userId" id="userId" placeholder=""
+                       ng-model="uuc.emotion.userId">
+            </div>
+        </div>
 
-            <!--<div class="col-sm-8">-->
-                <!--<input type="text" class="form-control" name="lastName" id="lastName" placeholder=""-->
-                       <!--ng-model="uuc.user.lastName">-->
-            <!--</div>-->
-        <!--</div>-->
+        <div class="form-group">
+            <label id="lbl_emotion" for="emotion" class="col-sm-4 control-label">Emotion</label>
 
-        <!--<div class="form-group">-->
-            <!--<label id="lbl_age" for="age" class="col-sm-4 control-label"-->
-                   <!--is-required="CreateUserForm.age">Age</label>-->
+            <div class="col-sm-8">
+                <input type="text" class="form-control" name="emotion" id="emotion" placeholder=""
+                       ng-model="uuc.emotion.emotion">
+            </div>
+        </div>
 
-            <!--<div class="col-sm-8">-->
-                <!--<input type="number" class="form-control" name="age" id="age"-->
-                       <!--ng-model="uuc.user.age">-->
-            <!--</div>-->
-        <!--</div>-->
+        <div class="form-group">
+            <label id="lbl_reason" for="reason" class="col-sm-4 control-label">Why do you feel this way?</label>
 
-        <!--<div class="form-group">-->
-            <!--<label id="lbl_active" for="active" class="col-sm-4 control-label"-->
-                   <!--is-required="CreateUserForm.active">Active</label>-->
+            <div class="col-sm-8">
+                <input type="text" class="form-control" name="reason" id="reason" placeholder=""
+                       ng-model="uuc.emotion.reason">
+            </div>
+        </div>
 
-            <!--<div class="col-sm-8">-->
-                <!--<input type="text" class="form-control" name="active" id="active"-->
-                       <!--ng-model="uuc.user.active">-->
-            <!--</div>-->
-        <!--</div>-->
+        <div class="form-group">
+            <label id="lbl_target" for="target" class="col-sm-4 control-label">Target</label>
 
-        <!--<pre>{{ uuc.user | json }}</pre>-->
+            <div class="col-sm-8">
+                <input type="text" class="form-control" name="target" id="target" placeholder=""
+                       ng-model="uuc.emotion.target">
+            </div>
+        </div>
 
-        <!--<div class="form-group">-->
-            <!--<div class="col-sm-offset-4 col-sm-8 text-right">-->
-                <!--<a ng-href="/#/" id="btn_cancel" class="btn btn-warning">Cancel</a>-->
+        <div class="form-group">
+            <label id="lbl_location" for="location" class="col-sm-4 control-label">Location</label>
 
-                <!--<button type="submit" class="btn btn-success" id="btn_create">Update User</button>-->
-            <!--</div>-->
-        <!--</div>-->
+            <div class="col-sm-8">
+                <input type="text" class="form-control" name="location" id="location" placeholder=""
+                       ng-model="uuc.emotion.location">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label id="lbl_link" for="link" class="col-sm-4 control-label">Link</label>
+
+            <div class="col-sm-8">
+                <input type="text" class="form-control" name="link" id="link" placeholder=""
+                       ng-model="uuc.emotion.link">
+            </div>
+        </div>
+
+        <pre>{{ uuc.emotion | json }}</pre>
+
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-8 text-right">
+                <a ng-href="/#/" id="btn_cancel" class="btn btn-warning">Cancel</a>
+
+                <button type="submit" class="btn btn-success" id="btn_create">Update Emotion</button>
+            </div>
+        </div>
 
 
-    <!--</form>-->
-<!--</div>-->
+    </form>
+</div>
 

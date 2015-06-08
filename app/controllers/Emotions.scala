@@ -32,34 +32,70 @@ class Emotions extends Controller {
         emotion =>
           Future {
             DB.withConnection { implicit conn =>
-              SQL("insert into Emotions (userId, emotion, reason, target, location, link) values ({userId}, {emotion}, {reason}, '', '', '')").
-                on("userId" -> emotion.userId, "emotion" -> emotion.emotion, "reason" -> emotion.reason).executeInsert()
+              SQL(
+                """insert into Emotions (userId, emotion, reason, target, location, link)
+                  | values ({userId}, {emotion}, {reason}, {target}, {location},  {link})"""
+                  .stripMargin).
+                on(emotion2NamedParams(emotion): _*).executeInsert()
             }
           }.flatMap(_ => Future.successful(Created(s"User Created")))
 
-      }.getOrElse(Future.successful(BadRequest("invalid json")))
+      }.getOrElse(Future.successful(BadRequest("invalid json"))).andThen {
+        case _ => logger.error(s"invalid json: ${request.body}")
+      }
   }
 
 
-  lazy val p: ResultSetParser[List[(Long, String, String, String, String, String, String)]] = {
-    (long("id") ~ str("userId") ~ str("emotion") ~ str("reason") ~ str("target")  ~ str("location") ~ str("link")).map(flatten).*
+  lazy val p: ResultSetParser[List[(Option[Long], String, String, Option[String],
+    Option[String], Option[String], Option[String])]] = {
+    (get[Option[Long]]("id") ~
+      str("userId") ~
+      str("emotion") ~
+      get[Option[String]]("reason") ~
+      get[Option[String]]("target") ~
+      get[Option[String]]("location") ~
+      get[Option[String]]("link")).map(flatten).*
   }
 
   def findEmotions = Action.async {
     Future {
       DB.withConnection { implicit conn =>
-          SQL("select * from Emotions").executeQuery().parse(p).
-            map(x => Emotion(Option(x._1), x._2, x._3, Option(x._4), Option(x._5), Option(x._6), Option(x._7)))
+        SQL("select * from Emotions").executeQuery().parse(p).
+          map(x => Emotion(x._1, x._2, x._3, x._4, x._5, x._6, x._7))
       }
     }.map(emotions => Ok(Json.arr(emotions).apply(0)))
   }
 
-  def updateEmotion(id: Long) = Action.async {
-    Future {
-      DB.withConnection { implicit conn =>
-        SQL("select * from Emotions").executeQuery().parse(p).
-          map(x => Emotion(Option(x._1), x._2, x._3, Option(x._4), Option(x._5), Option(x._6), Option(x._7)))
+  def updateEmotion(id: Long) = Action.async(parse.json) {
+    request =>
+      request.body.validate[Emotion].map {
+        emotion =>
+          Future {
+            DB.withConnection { implicit conn =>
+              SQL(
+                """update Emotions set
+                  |  userId={userId},
+                  |  emotion={emotion},
+                  |  reason={reason}, target={target},
+                  |  location={location},
+                  |  link={link}
+                  |where id={id}""".stripMargin).
+                on(emotion2NamedParams(emotion): _*).executeInsert()
+            }
+          }.flatMap(_ => Future.successful(Created(s"Emotion Created"))).andThen {
+            case _ => logger.info(s"Emotion Updated: $emotion")
+          }
+      }.getOrElse(Future.successful(BadRequest("invalid json"))).andThen {
+        case _ => logger.error(s"invalid json: ${request.body}")
       }
-    }.map(emotions => Ok(Json.arr(emotions).apply(0)))
+  }
+
+  private def emotion2NamedParams(emotion: Emotion): List[NamedParameter] = {
+    List("userId" -> emotion.userId,
+      "emotion" -> emotion.emotion,
+      "reason" -> emotion.reason,
+      "target" -> emotion.target,
+      "location" -> emotion.location,
+      "link" -> emotion.link)
   }
 }

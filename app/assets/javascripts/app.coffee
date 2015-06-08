@@ -21,9 +21,9 @@ angular.module('myApp.routeConfig', ['ngRoute'])
             .when('/emotions/create', {
                 templateUrl: '/assets/partials/create.html'
             })
-#            .when('/emotions/edit/:firstName/:lastName', {
-#                templateUrl: '/assets/partials/update.html'
-#            })
+            .when('/emotions/edit', {
+                templateUrl: '/assets/partials/update.html'
+            })
             .otherwise({redirectTo: '/'})
     .config ($locationProvider) ->
         $locationProvider.html5Mode({
