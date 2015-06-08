@@ -29,10 +29,11 @@ class Emotions extends Controller {
   def createEmotion = Action.async(parse.json) {
     request =>
       request.body.validate[Emotion].map {
-        user =>
+        emotion =>
           Future {
             DB.withConnection { implicit conn =>
-              SQL("insert into Emotions (userId, emotion, reason, target, location, link) values ('vega', '', '', '', '', '')").executeInsert()
+              SQL("insert into Emotions (userId, emotion, reason, target, location, link) values ({userId}, {emotion}, {reason}, '', '', '')").
+                on("userId" -> emotion.userId, "emotion" -> emotion.emotion, "reason" -> emotion.reason).executeInsert()
             }
           }.flatMap(_ => Future.successful(Created(s"User Created")))
 
@@ -40,8 +41,8 @@ class Emotions extends Controller {
   }
 
 
-  val p: ResultSetParser[List[(Long, String,String, String, String, String, String)]] = {
-    (long("id") ~ str("name") ~ str("language") ~ str("language") ~ str("language")  ~ str("language") ~ str("language")).map(flatten).*
+  lazy val p: ResultSetParser[List[(Long, String, String, String, String, String, String)]] = {
+    (long("id") ~ str("userId") ~ str("emotion") ~ str("reason") ~ str("target")  ~ str("location") ~ str("link")).map(flatten).*
   }
 
   def findEmotions = Action.async {
@@ -50,6 +51,15 @@ class Emotions extends Controller {
           SQL("select * from Emotions").executeQuery().parse(p).
             map(x => Emotion(Option(x._1), x._2, x._3, Option(x._4), Option(x._5), Option(x._6), Option(x._7)))
       }
-    }.map(emotions => Ok(Json.arr(emotions)))
+    }.map(emotions => Ok(Json.arr(emotions).apply(0)))
+  }
+
+  def updateEmotion(id: Long) = Action.async {
+    Future {
+      DB.withConnection { implicit conn =>
+        SQL("select * from Emotions").executeQuery().parse(p).
+          map(x => Emotion(Option(x._1), x._2, x._3, Option(x._4), Option(x._5), Option(x._6), Option(x._7)))
+      }
+    }.map(emotions => Ok(Json.arr(emotions).apply(0)))
   }
 }
