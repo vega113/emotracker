@@ -37,7 +37,7 @@ class EmotionService
             )
         deferred.promise
 
-    updateEmotion: (Emotion) ->
+    updateEmotion: (id, Emotion) ->
       @$log.debug "updateEmotion #{angular.toJson(Emotion, true)}"
       deferred = @$q.defer()
 

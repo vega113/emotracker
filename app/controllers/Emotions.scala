@@ -38,10 +38,10 @@ class Emotions extends Controller {
                   .stripMargin).
                 on(emotion2NamedParams(emotion): _*).executeInsert()
             }
-          }.flatMap(_ => Future.successful(Created(s"User Created")))
+          }.map(_ => Created(s"Emotion Created"))
 
       }.getOrElse(Future.successful(BadRequest("invalid json"))).andThen {
-        case _ => logger.error(s"invalid json: ${request.body}")
+        case e => logger.info(s"received json: ${request.body}", e)
       }
   }
 
@@ -86,12 +86,13 @@ class Emotions extends Controller {
             case _ => logger.info(s"Emotion Updated: $emotion")
           }
       }.getOrElse(Future.successful(BadRequest("invalid json"))).andThen {
-        case _ => logger.error(s"invalid json: ${request.body}")
+        case e => logger.info(s"received json: ${request.body}", e)
       }
   }
 
   private def emotion2NamedParams(emotion: Emotion): List[NamedParameter] = {
-    List("userId" -> emotion.userId,
+    List("id" -> emotion.id,
+      "userId" -> emotion.userId,
       "emotion" -> emotion.emotion,
       "reason" -> emotion.reason,
       "target" -> emotion.target,

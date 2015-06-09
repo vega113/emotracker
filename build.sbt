@@ -1,4 +1,4 @@
-name := "emodiary"
+name := "emotracker"
 
 version := "0.1-SNAPSHOT"
 
