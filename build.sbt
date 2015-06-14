@@ -22,3 +22,9 @@ libraryDependencies ++= Seq(
   jdbc,
   anorm
 )
+
+libraryDependencies += "ws.securesocial" %% "securesocial" % "master-SNAPSHOT"
+
+libraryDependencies += "com.typesafe.play" %% "play-slick" % "0.8.0"
+
+libraryDependencies += "com.github.tototoshi" %% "slick-joda-mapper" % "1.2.0"

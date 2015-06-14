@@ -1,6 +1,7 @@
 package controllers
 
 import javax.inject.{Singleton, Inject}
+import securesocial.core.RuntimeEnvironment
 import services.UUIDGenerator
 import org.slf4j.{LoggerFactory, Logger}
 import play.api.mvc._
@@ -24,5 +25,4 @@ class Application @Inject() (uuidGenerator: UUIDGenerator) extends Controller {
     logger.info("calling UUIDGenerator...")
     Ok(uuidGenerator.generate.toString)
   }
-
 }
