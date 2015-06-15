@@ -2,7 +2,8 @@ package slick
 
 import com.github.tototoshi.slick.JdbcJodaSupport._
 import models.UserTableQueries._
-import models._
+import models.users._
+import models.users._
 import org.joda.time.DateTime
 import play.api.Logger
 import play.api.Play.current

@@ -2,8 +2,10 @@ package controllers
 
 import javax.inject.Singleton
 
+import models.users.BasicUser
 import org.slf4j.{LoggerFactory, Logger}
 import play.api.mvc._
+import securesocial.core.{SecureSocial, RuntimeEnvironment}
 
 import scala.concurrent.Future
 
@@ -11,7 +13,6 @@ import play.api.Play.current
 
 import anorm._
 import play.api.db.DB
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json._
 import anorm.SqlParser._
 
@@ -19,7 +20,7 @@ import anorm.SqlParser._
  * Created by vega on 6/6/15.
  */
 @Singleton
-class Emotions extends Controller {
+class Emotions(override implicit val env: RuntimeEnvironment[BasicUser]) extends Controller with SecureSocial[BasicUser]{
 
   private final val logger: Logger = LoggerFactory.getLogger(classOf[Emotions])
 
@@ -57,7 +58,8 @@ class Emotions extends Controller {
       get[Option[String]]("link")).map(flatten).*
   }
 
-  def findEmotions = Action.async {
+  def findEmotions = UserAwareAction.async { request =>
+    logger.info(s"user: ${request.user.toString}")
     Future {
       DB.withConnection { implicit conn =>
         SQL("select * from Emotions").executeQuery().parse(p).

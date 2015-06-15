@@ -1,5 +1,7 @@
 package models
 
+import models.users._
+
 import scala.slick.lifted.TableQuery
 
 /**

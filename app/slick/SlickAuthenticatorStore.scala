@@ -1,7 +1,7 @@
 package slick
 
 import models.UserTableQueries.{userAuthenticators, users}
-import models.{BasicUser, UserAuthenticator}
+import models.users.{BasicUser, UserAuthenticator}
 import play.api.Logger
 import play.api.Play.current
 import play.api.db.slick.DB
